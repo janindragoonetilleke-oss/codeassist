@@ -22,6 +22,8 @@ TELEMETRY_API_EPISODE_SESSION = (
     f"{settings.TELEMETRY_BASE_URL}/event/codeassist/episode"
 )
 
+CODEASSIST_VERSION = os.environ.get("CODEASSIST_VERSION", "unknown")
+
 
 def _load_problem_question_id(problem_id: str) -> int | None:
     """Load the question_id (numeric ID) for a given problem_id (task_id string).
@@ -315,7 +317,6 @@ def convert_episode_session_to_telemetry_event(episode: Episode) -> EpisodeSessi
         ip_addr = get_ip()
     except Exception as e:
         ip_addr = None
-    codeassist_version = "0.1.0"  # TODO: Get codeassist version from package.json
 
     # Determine success based on final state
     final_state = (
@@ -360,7 +361,7 @@ def convert_episode_session_to_telemetry_event(episode: Episode) -> EpisodeSessi
         user_id=user_id,
         question_id=question_id,
         ip_addr=ip_addr,
-        codeassist_version=codeassist_version,
+        codeassist_version=CODEASSIST_VERSION,
         success=success,
         time_to_pass=time_to_pass,
         turns_to_pass=turns_to_pass,
