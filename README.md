@@ -112,7 +112,15 @@ If you see lines like the above, it means Docker is not running, or you do not h
 
 ## Bind for 0.0.0.0:3000 failed: port is already allocated
 
-This occurs when there is already a Docker container running that uses port 3000. If you're running RL Swarm on the same machine, you will have to stop RL Swarm to use CodeAssist.
+This occurs when there is already a Docker container running that uses port 3000.
+You have two options:
+1.  Stop the other service that is using the port (e.g., if you are running RL Swarm).
+2.  Run CodeAssist on a different port using the `--port` argument:
+
+```bash
+  uv run run.py --port 3001
+```
+> **Note:** When choosing a new port, please avoid `8000`, `8080`, `8001`, `8008`, `3003`, and `11434`, as they are reserved for other CodeAssist services.
 
 # Contributing
 

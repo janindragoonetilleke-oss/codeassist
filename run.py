@@ -80,6 +80,7 @@ class Config:
     training_config_path: str
     no_sc: bool
     train_only: bool
+    port: int
 
 
 def detect_docker():
@@ -315,7 +316,7 @@ def setup_web_ui(config: Config) -> docker.models.containers.Container:
         auto_remove=False,
         name="codeassist-web-ui",
         ports={
-            "3000/tcp": 3000,  # Expose Web UI port
+            "3000/tcp": config.port,  # Expose Web UI port
         },
         volumes={
             f"{os.getcwd()}/persistent-data": {
@@ -1068,10 +1069,11 @@ CCCCCCCCCCCCCCC                        CC                        CCCCCCCCCCCCCCC
     CONSOLE.print(Markdown("# CodeAssist Started"), style=HEADER_COLOR)
 
     if not config.train_only:
-        browser.open("http://localhost:3000")
+        url = f"http://localhost:{config.port}"
+        browser.open(url)
 
         CONSOLE.print(
-            "A browser should have opened to http://localhost:3000. You can now start coding!",
+            f"A browser should have opened to {url}. You can now start coding!",
             style=INFO_COLOR,
         )
 
@@ -1201,6 +1203,10 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--no-sc", action="store_true", help="Disable smart contract calls"
+    )
+
+    parser.add_argument(
+        "-p", "--port", type=int, help="Port to expose the Web UI on", default=3000,
     )
 
     args = parser.parse_args()
