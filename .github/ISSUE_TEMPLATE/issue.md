@@ -46,5 +46,9 @@ assignees: ''
 ## Additional Context
 <!-- Add any other context, screenshots, or information about the issue -->
 
+## Discord Username (Optional)
+
+<!-- Include your Discord username so we know who to attribute the issue to and can reach out if needed. -->
+
 ## Proposed Solution (for feature requests)
 <!-- If this is a feature request, describe how you envision it working -->
